@@ -17,7 +17,7 @@ import mg.franco.francotp4banque.entities.CompteBancaire;
  *
  * @author Franco
  */
-@DataSourceDefinition (
+@DataSourceDefinition(
     className="com.mysql.cj.jdbc.MysqlDataSource",
     name="java:app/jdbc/banque",
     serverName="localhost",
@@ -46,7 +46,7 @@ public class GestionnaireCompte
     
     public List<CompteBancaire> getAllComptes()
     {
-        String sql = "select c from compte as c" ;
+        String sql = "select c from CompteBancaire as c" ;
         TypedQuery<CompteBancaire> query = em.createQuery( sql , CompteBancaire.class );
         return query.getResultList();
     }
