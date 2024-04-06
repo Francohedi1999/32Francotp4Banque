@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @author Franco
  */
 @Entity
+@Table(name = "compte")
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
