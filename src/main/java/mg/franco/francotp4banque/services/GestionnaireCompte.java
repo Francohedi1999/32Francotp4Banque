@@ -6,7 +6,6 @@ package mg.franco.francotp4banque.services;
 
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -44,6 +43,26 @@ public class GestionnaireCompte
     public void creerCompte( CompteBancaire compteBancaire )
     {
         em.persist( compteBancaire );
+    }
+    
+    @Transactional
+    public CompteBancaire update(CompteBancaire compteBancaire) 
+    {
+        return em.merge(compteBancaire);
+    }
+    
+    @Transactional
+    public void transferer(CompteBancaire source, CompteBancaire destination, int montant) 
+    {
+        source.retirer(montant);
+        destination.deposer(montant);
+        update(source);
+        update(destination);
+    }
+    
+    public CompteBancaire findById( Long idCompteBancaire )
+    {
+        return em.find( CompteBancaire.class, idCompteBancaire ) ;
     }
     
     public List<CompteBancaire> getAllComptes()
