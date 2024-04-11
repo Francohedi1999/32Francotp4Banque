@@ -5,6 +5,7 @@
 package mg.franco.francotp4banque.services;
 
 import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -33,7 +34,7 @@ import mg.franco.francotp4banque.entities.CompteBancaire;
     }
 )
 
-@Dependent
+@ApplicationScoped
 public class GestionnaireCompte 
 {
     @PersistenceContext(unitName = "banquePU")
@@ -47,7 +48,7 @@ public class GestionnaireCompte
     
     public List<CompteBancaire> getAllComptes()
     {
-        TypedQuery<CompteBancaire> query = em.createQuery( "CompteBancaire.findAll" , CompteBancaire.class );
+        TypedQuery<CompteBancaire> query = em.createQuery( "SELECT c FROM CompteBancaire c" , CompteBancaire.class );
         return query.getResultList();
     }
     

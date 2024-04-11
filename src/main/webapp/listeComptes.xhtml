@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui" >
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Liste des comptes
+            </ui:define>
+
+            <ui:define name="content">
+                
+                <h:form>
+            
+                    <p:dataTable 
+                        value="#{listeComptes.allComptes}" 
+                        var="item" 
+                        widgetVar="compteTable"
+                        emptyMessage="Aucun client avec ce critère"
+                        paginator="true"
+                        rows="10" 
+                        rowsPerPageTemplate="2,4,8,10"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                               <h:outputText value="Recherche dans tous les champs de recherche  "/>
+                               <p:inputText id="globalFilter" 
+                                            onkeyup="PF('compteTable').filter()"
+                                            style="width:150px" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                           <f:facet name="header">
+                               <h:outputText value="ID"/>
+                           </f:facet>
+                           <h:outputText value="#{item.id}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.nom}" filterBy="#{item.nom}">
+                           <f:facet name="header">
+                               <h:outputText value="NOM"/>
+                           </f:facet>
+                           <h:outputText value="#{item.nom}" />
+                        </p:column>
+
+                        <p:column sortBy="#{item.solde}" filterBy="#{item.solde}">
+                           <f:facet name="header">
+                               <h:outputText value="SOLDE"/>
+                           </f:facet>
+                            <h:outputText value="#{item.solde}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+                
+                <h:messages/>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
