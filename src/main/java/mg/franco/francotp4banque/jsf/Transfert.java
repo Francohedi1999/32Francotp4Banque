@@ -64,6 +64,17 @@ public class Transfert implements Serializable {
         CompteBancaire source = gestionnaireCompte.findById(idSource) ;        
         CompteBancaire destination = gestionnaireCompte.findById(idDestination) ;
         
+        if( idSource == idDestination )
+        {
+            UtilMessage.messageErreur(  "ID compte source doit être différent de l' ID compte destination" , 
+                                        "ID compte source doit être différent de l' ID compte destination" , 
+                                        "form:idSource");
+            UtilMessage.messageErreur(  "ID compte destination doit être différent de l' ID compte source" , 
+                                        "ID compte destination doit être différent de l' ID compte source" , 
+                                        "form:idDestination");
+            erreur = true ;
+        }
+        
         if( source == null )
         {
             UtilMessage.messageErreur(  "Aucun compte (source) trouvé pour l'ID : " + idSource , 

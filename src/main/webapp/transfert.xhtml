@@ -18,21 +18,21 @@
                     <h:panelGrid columns="3">
                         
                         <h:outputLabel value="Id compte source :" for="idSource"/>
-                        <h:inputText id="idSource" size="3" value="#{transfert.idSource}"
-                                     required="true"
-                                     converterMessage="L'id est un nombre entier"/>
+                        <h:inputText    id="idSource" size="3" value="#{transfert.idSource}"
+                                        required="true"
+                                        requiredMessage="Le champ Id compte source est obligatoire" />
                         <h:message for="idSource"/>
                         
                         <h:outputLabel value="Id compte destination :" for="idDestination"/>
-                        <h:inputText id="idDestination" size="3" value="#{transfert.idDestination}"
-                                     required="true"
-                                     converterMessage="L'id est un nombre entier"/>
+                        <h:inputText    id="idDestination" size="3" value="#{transfert.idDestination}"
+                                        required="true"
+                                        requiredMessage="Le champ Id compte destination est obligatoire"/>
                         <h:message for="idDestination"/>
                         
                         <h:outputLabel value="Somme à transférer :" for="somme"/>
                         <h:inputText id="somme" size="3" value="#{transfert.somme}"
                                      required="true"
-                                     converterMessage="La somme est un nombre entier"/>
+                                     requiredMessage="Le champ somme est obligatoire"/>
                         <h:message for="somme"/>
                         
                         <h:commandButton value="Valider"  action="#{transfert.transfert()}"/>

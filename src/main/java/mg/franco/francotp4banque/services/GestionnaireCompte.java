@@ -76,4 +76,10 @@ public class GestionnaireCompte
         Query query = em.createNamedQuery("CompteBancaire.countAll") ;
         return (Long)query.getSingleResult() ;
     }
+    
+    @Transactional
+    public void create( CompteBancaire compteBancaire )
+    {
+        em.persist( compteBancaire );
+    }
 }

@@ -38,10 +38,11 @@
                         </f:facet>
 
                         <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                           <f:facet name="header">
-                               <h:outputText value="ID"/>
-                           </f:facet>
-                           <h:outputText value="#{item.id}"/>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>                           
+                            <h:link  outcome="mouvement?idCompte=#{item.id}" 
+                            value="#{item.id}"/>
                         </p:column>
 
                         <p:column sortBy="#{item.nom}" filterBy="#{item.nom}">
