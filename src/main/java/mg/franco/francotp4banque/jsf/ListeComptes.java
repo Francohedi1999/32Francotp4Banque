@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import mg.franco.francotp4banque.entities.CompteBancaire;
 import mg.franco.francotp4banque.services.GestionnaireCompte;
+import mg.franco.francotp4banque.utils.UtilMessage;
 
 /**
  *
@@ -39,6 +40,15 @@ public class ListeComptes implements Serializable {
             listCompteBancaires = gestionnaireCompte.getAllComptes();
         }
         return listCompteBancaires ;
+    }
+    
+    public String suprimer( CompteBancaire compteBancaire )
+    {
+        gestionnaireCompte.delete( compteBancaire );
+        UtilMessage.addFlashInfoMessage(    "Le compte ID " + 
+                                            compteBancaire.getId() + 
+                                            " a été bien supprimé" );
+        return "listeComptes?faces-redirect=true" ;
     }
     
 }

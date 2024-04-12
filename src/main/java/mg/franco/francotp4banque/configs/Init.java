@@ -41,10 +41,10 @@ public class Init
     {
         if( gestionnaireCompte.nbComptes() == 0 )
         {
-            gestionnaireCompte.creerCompte(new CompteBancaire("John Lennon", 150000));          
-            gestionnaireCompte.creerCompte(new CompteBancaire("Paul McCartney", 950000));  
-            gestionnaireCompte.creerCompte(new CompteBancaire("Ringo Starr", 20000));  
-            gestionnaireCompte.creerCompte(new CompteBancaire("Georges Harrisson", 100000));
+            gestionnaireCompte.create(new CompteBancaire("John Lennon", 150000));          
+            gestionnaireCompte.create(new CompteBancaire("Paul McCartney", 950000));  
+            gestionnaireCompte.create(new CompteBancaire("Ringo Starr", 20000));  
+            gestionnaireCompte.create(new CompteBancaire("Georges Harrisson", 100000));
         }
 
     }

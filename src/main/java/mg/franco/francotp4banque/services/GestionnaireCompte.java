@@ -40,12 +40,6 @@ public class GestionnaireCompte
     private EntityManager em ;
     
     @Transactional
-    public void creerCompte( CompteBancaire compteBancaire )
-    {
-        em.persist( compteBancaire );
-    }
-    
-    @Transactional
     public CompteBancaire update(CompteBancaire compteBancaire) 
     {
         return em.merge(compteBancaire);
@@ -81,5 +75,12 @@ public class GestionnaireCompte
     public void create( CompteBancaire compteBancaire )
     {
         em.persist( compteBancaire );
+    }
+    
+    @Transactional
+    public void delete( CompteBancaire compteBancaire )
+    {
+        CompteBancaire compte = em.merge(compteBancaire) ;
+        em.remove( compte );
     }
 }
