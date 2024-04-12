@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="jakarta.faces.html"
+          xmlns:ui="jakarta.faces.facelets"
+          xmlns:f="jakarta.faces.core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="metadata">
+                
+                <f:metadata>
+                    <f:viewParam    name="idCompte" 
+                                    value="#{modifNomCompte.idCompte}"
+                                    required="true"/>
+                    <f:viewAction action="#{modifNomCompte.loadCompte}"/>
+                </f:metadata>
+                
+            </ui:define>
+
+            <ui:define name="top">
+                
+                Modifier de nom de possesseur d'un compte
+                
+            </ui:define>
+
+            <ui:define name="content">
+                
+                <f:view>
+
+                    <h:form rendered="#{modifNomCompte.compteBancaire != null}"  id="form">
+                        
+                        <h:outputLabel 
+                            value="NOM ACTUEL : #{modifNomCompte.nomActuel} ID : #{modifNomCompte.compteBancaire.id}" 
+                            for="solde_actuel" />
+                        
+                        <h:panelGrid columns="3">
+
+                            <h:outputLabel 
+                                value="NOUVEAU NOM :" 
+                                for="nom" />
+                            <h:inputText 
+                                id="nom" 
+                                value="#{modifNomCompte.nouveauNom}"
+                                title="NOUVEAU NOM" 
+                                required="true" 
+                                requiredMessage="Le champ nom est obligatoire" />
+                            <h:message for="nom"/>
+                        
+                        <h:commandButton id="update" value="Enregistrer" action="#{modifNomCompte.modifNom()}"/>                       
+                        
+                        </h:panelGrid>
+
+                    </h:form>
+                
+                    <h:outputText value="Aucun compte pour l' ID : #{modifNomCompte.idCompte} !" rendered="#{modifNomCompte.compteBancaire == null}"/>
+            
+                </f:view>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

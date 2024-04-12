@@ -4,7 +4,6 @@
  */
 package mg.franco.francotp4banque.jsf;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -18,7 +17,7 @@ import mg.franco.francotp4banque.utils.UtilMessage;
  * @author Franco
  */
 @Named(value = "ajoutCompte")
-@ApplicationScoped
+@RequestScoped
 public class AjoutCompte {
 
     private String nom ;

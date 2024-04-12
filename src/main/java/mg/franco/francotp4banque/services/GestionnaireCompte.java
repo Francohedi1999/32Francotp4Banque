@@ -45,6 +45,7 @@ public class GestionnaireCompte
         return em.merge(compteBancaire);
     }
     
+    
     @Transactional
     public void transferer(CompteBancaire source, CompteBancaire destination, int montant) 
     {
