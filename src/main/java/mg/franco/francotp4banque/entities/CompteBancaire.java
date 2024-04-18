@@ -24,7 +24,6 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery( name = "CompteBancaire.findAll" , query = "SELECT c FROM CompteBancaire c") ,
     @NamedQuery(name = "CompteBancaire.countAll", query = "SELECT count(c) FROM CompteBancaire c")
 })
 
