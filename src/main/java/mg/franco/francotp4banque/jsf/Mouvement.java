@@ -92,14 +92,24 @@ public class Mouvement implements Serializable {
         }
         else if( type.equals("retrait"))
         {
-            compteBancaire.retirer(somme);
-            gestionnaireCompte.update(compteBancaire) ;
-            UtilMessage.addFlashInfoMessage(    "Un retrait de " + 
-                                                somme + 
-                                                " a été effectué sur le compte (source) ID : " +
-                                                compteBancaire.getId() );
-            erreur = true ;
-            return "listeComptes?faces-redirect=true" ;
+            if( somme > compteBancaire.getSolde() )
+            {
+                UtilMessage.messageErreur(  "Solde du compte insuffisant pour le retrait" , 
+                                            "Solde du compte insuffisant pour le retrait" , 
+                                            "form:somme");
+                erreur = true ;
+            }
+            else
+            {                
+                compteBancaire.retirer(somme);
+                gestionnaireCompte.update(compteBancaire) ;
+                UtilMessage.addFlashInfoMessage(    "Un retrait de " + 
+                                                    somme + 
+                                                    " a été effectué sur le compte (source) ID : " +
+                                                    compteBancaire.getId() );
+                erreur = true ;
+                return "listeComptes?faces-redirect=true" ;
+            }
         }
         else
         {
