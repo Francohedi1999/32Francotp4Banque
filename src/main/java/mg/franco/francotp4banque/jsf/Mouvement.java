@@ -7,6 +7,7 @@ package mg.franco.francotp4banque.jsf;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.OptimisticLockException;
 import java.io.Serializable;
 import mg.franco.francotp4banque.entities.CompteBancaire;
 import mg.franco.francotp4banque.services.GestionnaireCompte;
@@ -77,53 +78,53 @@ public class Mouvement implements Serializable {
     
     public String faireMouvement()
     {
-        boolean erreur = false;
-        
-        if( type.equals("depot") )
+        try 
         {
-            compteBancaire.deposer(somme);
-            gestionnaireCompte.update(compteBancaire) ;
-            UtilMessage.addFlashInfoMessage(    "Un dépôt de " + 
-                                                somme + 
-                                                " a été effectué sur le compte (source) ID : " +
-                                                compteBancaire.getId() );
-            erreur = true ;
-            return "listeComptes?faces-redirect=true" ;
-        }
-        else if( type.equals("retrait"))
-        {
-            if( somme > compteBancaire.getSolde() )
+            if( type.equals("depot") )
             {
-                UtilMessage.messageErreur(  "Solde du compte insuffisant pour le retrait" , 
-                                            "Solde du compte insuffisant pour le retrait" , 
-                                            "form:somme");
-                erreur = true ;
-            }
-            else
-            {                
-                compteBancaire.retirer(somme);
+                compteBancaire.deposer(somme);
                 gestionnaireCompte.update(compteBancaire) ;
-                UtilMessage.addFlashInfoMessage(    "Un retrait de " + 
+                UtilMessage.addFlashInfoMessage(    "Un dépôt de " + 
                                                     somme + 
                                                     " a été effectué sur le compte (source) ID : " +
                                                     compteBancaire.getId() );
-                erreur = true ;
                 return "listeComptes?faces-redirect=true" ;
             }
-        }
-        else
+            else if( type.equals("retrait"))
+            {
+                if( somme > compteBancaire.getSolde() )
+                {
+                    UtilMessage.messageErreur(  "Solde du compte insuffisant pour le retrait" , 
+                                                "Solde du compte insuffisant pour le retrait" , 
+                                                "form:somme");
+                }
+                else
+                {                
+                    compteBancaire.retirer(somme);
+                    gestionnaireCompte.update(compteBancaire) ;
+                    UtilMessage.addFlashInfoMessage(    "Un retrait de " + 
+                                                        somme + 
+                                                        " a été effectué sur le compte (source) ID : " +
+                                                        compteBancaire.getId() );
+                    return "listeComptes?faces-redirect=true" ;
+                }
+            }
+            else
+            {
+                UtilMessage.messageErreur(  "Aucun type de mouvement sélectionné" , 
+                                            "Aucun type de mouvement sélectionné" , 
+                                            "form:type");
+            }
+        } 
+        catch (OptimisticLockException  e) 
         {
-            UtilMessage.messageErreur(  "Aucun type de mouvement sélectionné" , 
-                                        "Aucun type de mouvement sélectionné" , 
-                                        "form:type");
-            erreur = true ;
-        }
-        
-        if( erreur )
-        {
-            return null ;
-        }
-        
+            UtilMessage.messageErreur(  "Le compte de " + 
+                                        compteBancaire.getNom() + 
+                                        " ID: " +
+                                        compteBancaire.getId() + 
+                                        " a été modifié ou supprimé par un autre utilisateur !");
+            return null;
+        }        
         return "listeComptes?faces-redirect=true" ;
     }
 }

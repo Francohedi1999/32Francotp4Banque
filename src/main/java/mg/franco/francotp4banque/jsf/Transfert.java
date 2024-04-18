@@ -59,8 +59,6 @@ public class Transfert implements Serializable {
     
     public String transfert()
     {
-        boolean erreur = false;
-        
         CompteBancaire source = gestionnaireCompte.findById(idSource) ;        
         CompteBancaire destination = gestionnaireCompte.findById(idDestination) ;
         
@@ -72,7 +70,6 @@ public class Transfert implements Serializable {
             UtilMessage.messageErreur(  "ID compte destination doit être différent de l' ID compte source" , 
                                         "ID compte destination doit être différent de l' ID compte source" , 
                                         "form:idDestination");
-            erreur = true ;
         }
         
         if( source == null )
@@ -80,7 +77,6 @@ public class Transfert implements Serializable {
             UtilMessage.messageErreur(  "Aucun compte (source) trouvé pour l'ID : " + idSource , 
                                         "Aucun compte (source) trouvé pour l'ID : " + idSource , 
                                         "form:idSource");
-            erreur = true ;
         }
         else
         {
@@ -89,7 +85,6 @@ public class Transfert implements Serializable {
                 UtilMessage.messageErreur(  "Solde du compte (source) insuffisant pour l'ID : " + idSource , 
                                             "Solde du compte (source) insuffisant pour l'ID : " + idSource , 
                                             "form:somme");
-                erreur = true;
             }
         }
         
@@ -98,12 +93,6 @@ public class Transfert implements Serializable {
             UtilMessage.messageErreur(  "Aucun compte (destination) trouvé pour l'ID : " + idDestination , 
                                         "Aucun compte (destination) trouvé pour l'ID : " + idDestination , 
                                         "form:idDestination");
-            erreur = true ;
-        }
-        
-        if( erreur )
-        {
-            return null ;
         }
         
         gestionnaireCompte.transferer( source , destination , somme);
