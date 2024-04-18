@@ -4,13 +4,18 @@
  */
 package mg.franco.francotp4banque.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,13 +33,15 @@ public class CompteBancaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nom;
+    private int solde;
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)  
+    private List<OperationBancaire> operations = new ArrayList<>(); 
 
     public Long getId() {
         return id;
-    }
-    private String nom;
-    private int solde;
-
+    } 
+        
     /**
      * Get the value of solde
      *
@@ -74,6 +81,11 @@ public class CompteBancaire implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+                
+    public List<OperationBancaire> getOperations() {  
+      return operations;  
+    } 
 
     public CompteBancaire(String nom, int solde) 
     {  
